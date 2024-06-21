@@ -1,0 +1,45 @@
+# Terraform files
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+*.tf.lock.hcl
+crash.log
+override.tf
+override.tf.json
+.terraformrc
+terraform.rc
+
+# Local .terraform directories
+.terraform/
+
+# .tfplan files
+*.tfplan
+
+# CLI configuration files
+.terraform.d/
+.terraform.lock.hcl
+
+# Kubernetes secret files
+secrets.auto.tfvars
+
+# Ignore directories/files created by Terraform
+**/.terraform/
+**/.terraform.lock.hcl
+
+# Ignore provider binaries
+**/terraform-provider-*
+
+# IDE/editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# macOS files
+.DS_Store
+
+# Windows files
+Thumbs.db

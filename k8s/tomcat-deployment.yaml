@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat
+  namespace: ta-tomcat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+        - name: tomcat
+          image: ghcr.io/nazarich91/travelagency/travelagency-tomcat:latest
+          env:
+            - name: DB_TRAVELAGENCY_URL
+              value: jdbc:mysql://mysql:3306/travelagency
+            - name: DB_TRAVELAGENCY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: mysql-user
+            - name: DB_TRAVELAGENCY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: mysql-password
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: ghcr-secret

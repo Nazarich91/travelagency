@@ -62,10 +62,6 @@ jobs:
           kubectl apply -f k8s/mysql-service.yaml
           kubectl apply -f k8s/tomcat-service.yaml
 
-      - name: Terraform Destroy on Failure
-        if: failure()
-        run: terraform destroy -auto-approve
-
   test:
     runs-on: ubuntu-latest
     needs: deploy

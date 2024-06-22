@@ -33,14 +33,7 @@ jobs:
       - name: Set up kubectl
         uses: actions-hub/kubectl@master
         with:
-          version: "v1.19.0"
-
-      - name: Configure kubectl with KUBE_CONFIG
-        run: |
-          mkdir -p /home/runner/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > /home/runner/.kube/config
-        env:
-          KUBECONFIG: /home/runner/.kube/config
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
       - name: Create Kubernetes Secrets
         run: |

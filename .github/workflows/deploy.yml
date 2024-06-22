@@ -31,11 +31,11 @@ jobs:
         run: terraform apply -auto-approve
 
       - name: Set up kubectl
-        uses: steebchen/kubectl@v1
+        uses: steebchen/kubectl@v2.0.0
         with:
-          version: 'v1.25.0'
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          config: ${{ secrets.KUBE_CONFIG }}
+          version: v1.21.0 # specify kubectl binary version explicitly
+          binaries-url: "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl"
 
       - name: Create Kubernetes Secrets
         run: |

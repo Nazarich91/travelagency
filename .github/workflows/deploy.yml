@@ -30,6 +30,11 @@ jobs:
         id: apply
         run: terraform apply -auto-approve
 
+      - name: Install aws-cli
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
       - name: Set up kubectl
         uses: actions-hub/kubectl@master
         env:

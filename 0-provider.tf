@@ -9,4 +9,9 @@ terraform {
       version = "~> 3.0"
     }
   }
+  backend "s3" {
+    bucket = "nazarich91-travelagency-tfstate"
+    key    = "state/terraform.tfstate"
+    region = "us-east-1"
+  }
 }

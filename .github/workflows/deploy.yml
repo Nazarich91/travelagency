@@ -64,6 +64,10 @@ jobs:
             --docker-password=${{ secrets.GHCR_TOKEN }} \
             --docker-email=${{ secrets.GHCR_EMAIL }}
 
+      - name: Create necessary namespaces
+        run: |
+          kubectl create namespace ta-mysql-data || true
+      
       - name: Deploy Kubernetes manifests
         run: |
           kubectl apply -f k8s/aws-test.yaml

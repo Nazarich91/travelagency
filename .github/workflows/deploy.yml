@@ -66,14 +66,16 @@ jobs:
 
       - name: Create necessary namespaces
         run: |
-          kubectl create namespace ta-mysql-data || true
+          kubectl create namespace ta-mysql-data || true 
+          kubectl create namespace ta-mysql || true 
+          kubectl create namespace ta-tomcat || true 
       
       - name: Deploy Kubernetes manifests
         run: |
           kubectl apply -f k8s/aws-test.yaml
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/mysql-pvc.yaml
-          kubectl apply -f k8s/public-lb.yaml
+          kubectl apply -f k8s/private-lb.yaml
           kubectl apply -f k8s/storageclass.yaml
           kubectl apply -f k8s/mysql-deployment.yaml
           kubectl apply -f k8s/tomcat-deployment.yaml

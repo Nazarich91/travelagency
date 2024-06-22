@@ -15,10 +15,10 @@ jobs:
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "us-east-1"
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
@@ -34,15 +34,15 @@ jobs:
         uses: steebchen/kubectl@v2.0.0
         with:
           config: ${{ secrets.KUBE_CONFIG }}
-          version: v1.21.0 
+          version: v1.21.0
           binaries-url: "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl"
-      
-      - name: Verify kubectl configuration
-        run: kubectl config view
+
+      - name: update kubeconfig
+        run: aws eks update-kubeconfig --region us-east-1 --name travelagency
 
       - name: Check cluster access
         run: kubectl get nodes
-     
+
       - name: Create Kubernetes Secrets
         run: |
           kubectl create secret generic db-credentials \

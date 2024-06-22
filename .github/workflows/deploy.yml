@@ -37,19 +37,6 @@ jobs:
           version: v1.21.0 # specify kubectl binary version explicitly
           binaries-url: "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl"
 
-      - name: Create Kubernetes Secrets
-        run: |
-          kubectl create secret generic db-credentials \
-            --from-literal=mysql-database=${{ secrets.MYSQL_DATABASE }} \
-            --from-literal=mysql-user=${{ secrets.MYSQL_USER }} \
-            --from-literal=mysql-password=${{ secrets.MYSQL_PASSWORD }} \
-            --from-literal=mysql-root-password=${{ secrets.MYSQL_ROOT_PASSWORD }}
-          kubectl create secret docker-registry ghcr-secret \
-            --docker-server=ghcr.io \
-            --docker-username=${{ secrets.GHCR_USERNAME }} \
-            --docker-password=${{ secrets.GHCR_TOKEN }} \
-            --docker-email=${{ secrets.GHCR_EMAIL }}
-
       - name: Deploy Kubernetes manifests
         run: |
           kubectl apply -f k8s/aws-test.yaml

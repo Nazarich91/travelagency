@@ -45,6 +45,11 @@ jobs:
 
       - name: Check cluster access
         run: kubectl get nodes
+        
+      - name: Delete existing secrets
+        run: |
+          kubectl delete secret db-credentials || true
+          kubectl delete secret ghcr-secret || true
 
       - name: Create Kubernetes Secrets
         run: |

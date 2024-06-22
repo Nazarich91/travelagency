@@ -32,8 +32,8 @@ jobs:
 
       - name: Set up kubectl
         uses: actions-hub/kubectl@master
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
 
       - name: Create Kubernetes Secrets
         run: |
